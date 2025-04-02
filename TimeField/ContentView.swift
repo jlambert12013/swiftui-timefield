@@ -16,10 +16,11 @@ struct ContentView: View {
       .autocorrectionDisabled()
       .fixedSize()
       .onReceive(hour.publisher.collect()) {
-        print("RESULT")
         // FILTER OUT NON-NUMERIC CHARACTERS
-//        let result = String(hour.unicodeScalars.filter(CharacterSet.whitespaces.inverted.contains))
-
+        
+        
+        
+        
         // LIMIT CHARACTER COUNT
         hour = String($0.prefix(2))
           
