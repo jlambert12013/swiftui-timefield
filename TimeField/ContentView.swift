@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
   @State private var hour = ""
-  @State private var minute = ""
+  @State private var mintue = ""
   
   
   var body: some View {
@@ -47,24 +47,26 @@ struct ContentView: View {
         }
       
       // MINUTES
-      TextField("MM", text: $minute)
+      TextField("MM", text: $mintue)
         .multilineTextAlignment(.leading)
         .keyboardType(.numberPad)
         .autocorrectionDisabled()
         .fixedSize()
-        .onReceive(minute.publisher.collect()) {
+        .onReceive(mintue.publisher.collect()) {
           // FILTER OUT NON-NUMERIC CHARACTERS
           let number = $0.filter { $0.isNumber }
           
           
           // LIMIT CHARACTER COUNT
-          minute = String(number.prefix(2))
+          mintue = String(number.prefix(2))
           
-          for rejected in 6...9 {
-            if minute.hasPrefix("\(rejected)") {
-              minute.removeAll()
+          // REMOVE REJECTED PREFIX
+          for reject in 6...9 {
+            if mintue.hasPrefix("\(reject)") {
+              mintue.removeAll()
             }
           }
+        
         }
     }
   }
