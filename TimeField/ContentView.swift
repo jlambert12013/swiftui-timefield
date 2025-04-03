@@ -9,63 +9,69 @@ import SwiftUI
 
 struct ContentView: View {
   @State private var hour = ""
+  @State private var minute = ""
+  
   
   var body: some View {
-    TextField("HH", text: $hour)
-      .multilineTextAlignment(.trailing)
-      .autocorrectionDisabled()
-      .fixedSize()
-      .onReceive(hour.publisher.collect()) {
-        // FILTER OUT NON-NUMERIC CHARACTERS
-        
-        
-        
-        
-        // LIMIT CHARACTER COUNT
-        hour = String($0.prefix(2))
+    HStack {
+      
+      // HOUR
+      TextField("HH", text: $hour)
+        .multilineTextAlignment(.trailing)
+        .keyboardType(.numberPad)
+        .autocorrectionDisabled()
+        .fixedSize()
+        .onReceive(hour.publisher.collect()) {
+          // FILTER OUT NON-NUMERIC CHARACTERS
+          let number = $0.filter { $0.isNumber }
           
-        // PREFIX WITH ZERO
-        for num in 2...9 {
-          if hour.hasPrefix("\(num)") {
-            hour = "0\(num)"
+          // LIMIT CHARACTER COUNT
+          hour = String(number.prefix(2))
+          
+          // PREFIX WITH ZERO
+          for num in 2...9 {
+            if hour.hasPrefix("\(num)") {
+              hour = "0\(num)"
+            }
           }
-        }
-        
-        // REMOVE SINGLE ZERO (BACKSPACE ALL)
-        if hour == "0" {
-          hour.removeLast()
-        }
-        
-        // REMOVE REJECTED SUFFIX
-        if hour.hasPrefix("1") {
+          
+          // REMOVE SINGLE ZERO (BACKSPACE ALL)
+          if hour == "0" { hour.removeLast() }
+          
+          // REMOVE REJECTED SUFFIX
           for reject in 3...9 {
             if hour.hasSuffix("\(reject)") {
               hour.removeLast()
             }
           }
         }
-        
-        
-      }
-      .onSubmit {
-        
-        // SUBMIT ONE O'CLOCK
-        if hour == "1" {
-          hour = "01"
+      
+      // MINUTES
+      TextField("MM", text: $minute)
+        .multilineTextAlignment(.leading)
+        .keyboardType(.numberPad)
+        .autocorrectionDisabled()
+        .fixedSize()
+        .onReceive(minute.publisher.collect()) {
+          // FILTER OUT NON-NUMERIC CHARACTERS
+          let number = $0.filter { $0.isNumber }
+          
+          
+          // LIMIT CHARACTER COUNT
+          minute = String(number.prefix(2))
+          
+          for rejected in 6...9 {
+            if minute.hasPrefix("\(rejected)") {
+              minute.removeAll()
+            }
+          }
         }
-      }
+    }
   }
 }
-
-
-
-
-
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView()
   }
 }
-
-
