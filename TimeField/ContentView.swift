@@ -17,7 +17,7 @@ struct ContentView: View {
   }
   
   var body: some View {
-    HStack {
+    HStack(spacing: 4) {
       
       // HOUR
       TextField("HH", text: $hour)
@@ -42,7 +42,7 @@ struct ContentView: View {
           
           // REMOVE SINGLE ZERO (BACKSPACE ALL)
           if hour == "0" { hour.removeLast() }
-   
+          
           if hour.hasPrefix("1") {
             // REMOVE REJECTED SUFFIX
             for reject in 3...9 {
@@ -54,9 +54,11 @@ struct ContentView: View {
           
           if hour.count == 2 {
             focus = .minute
-           
+            
           }
         }
+      
+      Text(":").opacity(0.4)
       
       // MINUTES
       TextField("MM", text: $mintue)
