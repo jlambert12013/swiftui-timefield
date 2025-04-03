@@ -10,7 +10,11 @@ import SwiftUI
 struct ContentView: View {
   @State private var hour = ""
   @State private var mintue = ""
+  @FocusState private var focus: FocusField?
   
+  enum FocusField {
+    case hour, minute
+  }
   
   var body: some View {
     HStack {
@@ -21,6 +25,7 @@ struct ContentView: View {
         .keyboardType(.numberPad)
         .autocorrectionDisabled()
         .fixedSize()
+        .focused($focus, equals: .hour)
         .onReceive(hour.publisher.collect()) {
           // FILTER OUT NON-NUMERIC CHARACTERS
           let number = $0.filter { $0.isNumber }
@@ -37,12 +42,19 @@ struct ContentView: View {
           
           // REMOVE SINGLE ZERO (BACKSPACE ALL)
           if hour == "0" { hour.removeLast() }
-          
-          // REMOVE REJECTED SUFFIX
-          for reject in 3...9 {
-            if hour.hasSuffix("\(reject)") {
-              hour.removeLast()
+   
+          if hour.hasPrefix("1") {
+            // REMOVE REJECTED SUFFIX
+            for reject in 3...9 {
+              if hour.hasSuffix("\(reject)") {
+                hour.removeLast()
+              }
             }
+          }
+          
+          if hour.count == 2 {
+            focus = .minute
+           
           }
         }
       
@@ -52,10 +64,10 @@ struct ContentView: View {
         .keyboardType(.numberPad)
         .autocorrectionDisabled()
         .fixedSize()
+        .focused($focus, equals: .minute)
         .onReceive(mintue.publisher.collect()) {
           // FILTER OUT NON-NUMERIC CHARACTERS
           let number = $0.filter { $0.isNumber }
-          
           
           // LIMIT CHARACTER COUNT
           mintue = String(number.prefix(2))
@@ -66,7 +78,6 @@ struct ContentView: View {
               mintue.removeAll()
             }
           }
-        
         }
     }
   }
