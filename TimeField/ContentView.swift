@@ -12,12 +12,16 @@ struct ContentView: View {
   @State private var mintue = ""
   @FocusState private var focus: FocusField?
   
+  let label: String?
+  
   enum FocusField {
     case hour, minute
   }
   
   var body: some View {
     HStack(spacing: 4) {
+      
+      Text("\(label ?? "")").padding(.trailing)
       
       // HOUR
       TextField("HH", text: $hour)
@@ -81,12 +85,12 @@ struct ContentView: View {
             }
           }
         }
-    }
+    }.fixedSize()
   }
 }
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    ContentView(label: "Enter Time")
   }
 }
