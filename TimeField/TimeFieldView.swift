@@ -19,11 +19,11 @@ struct TimeFieldView: View {
     
     
     VStack(alignment: .leading, spacing: 2) {
-      // MARK: LABEL
+      // LABEL
       Text("\(label ?? "")").padding(.trailing)
         .font(.subheadline)
-      //        .font(.custom("Poppins-Medium", size: 12))
       
+      // INPUT FIELD
       HStack {
         // MARK: HOUR FIELD
         TextField("HH", text: $hour)
@@ -50,6 +50,7 @@ struct TimeFieldView: View {
             // REMOVE SINGLE ZERO (BACKSPACE ALL)
             if hour == "0" { hour.removeLast() }
             
+            // HANDLE 10, 11, 12 O'CLOCK
             if hour.hasPrefix("1") {
               // REMOVE REJECTED SUFFIX
               for reject in 3...9 {
@@ -89,6 +90,7 @@ struct TimeFieldView: View {
               }
             }
             
+            // FOCUS
             if mintue.count == 2 {
               focus = .meridiem
             }
@@ -125,8 +127,8 @@ struct TimeFieldView: View {
       .padding(.horizontal, 10)
       .font(.headline)
       .opacity(0.8)
-      .background(Color(red: 39/255, green: 39/255, blue: 42/255))
-      .foregroundStyle(Color(red: 229/255, green: 231/255, blue: 235/255))
+//      .background(Color(red: 39/255, green: 39/255, blue: 42/255))
+//      .foregroundStyle(Color(red: 229/255, green: 231/255, blue: 235/255))
       .cornerRadius(6)
       .fixedSize()
     }
