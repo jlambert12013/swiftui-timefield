@@ -10,22 +10,21 @@ import SwiftUI
 struct TimeFieldView: View {
   @State private var hour = ""
   @State private var mintue = ""
-//  @State private var meridiemLabel: String? = "AM"
-  @State  var meridiemState: Bool
+  @State private var meridiem = ""
   @FocusState private var focus: FocusField?
   
   let label: String?
   
   enum FocusField {
-    case hour, minute
+    case hour, minute, meridiem
   }
   
   var body: some View {
     HStack(spacing: 4) {
-      
+      // MARK: LABEL
       Text("\(label ?? "")").padding(.trailing)
       
-      // HOUR
+      // MARK: HOUR FIELD
       TextField("HH", text: $hour)
         .multilineTextAlignment(.trailing)
         .keyboardType(.numberPad)
@@ -63,9 +62,10 @@ struct TimeFieldView: View {
           }
         }
       
+      // MARK: DIVIDER
       Text(":").opacity(0.4)
       
-      // MINUTES
+      // MARK: MINUTES
       TextField("MM", text: $mintue)
         .multilineTextAlignment(.leading)
         .keyboardType(.numberPad)
@@ -85,19 +85,53 @@ struct TimeFieldView: View {
               mintue.removeAll()
             }
           }
+          
+          if mintue.count == 2 {
+            focus = .meridiem
+          }
+          
+        }.padding(.trailing, 2)
+      
+      
+      // MARK: MERIDIEM
+      TextField("--", text: $meridiem)
+        .multilineTextAlignment(.leading)
+        .keyboardType(.default)
+        .autocorrectionDisabled()
+        .fixedSize()
+        .focused($focus, equals: .meridiem)
+        .onReceive(meridiem.publisher.collect()) {
+          
+          // LIMIT TO LETTER
+          let letter = $0.filter { $0.isLetter }
+          
+          // LIMIT CHARACTER COUNT
+          meridiem = String(letter.prefix(2))
+          meridiem  = meridiem.uppercased()
+          meridiem = meridiem.filter {_ in
+            meridiem.contains(where: { "AP".contains($0) })
+          }
+          
+          if meridiem.count == 1 {
+            meridiem = meridiem + "M"
+          }
+          
+          if meridiem.count == 2 {
+            focus = nil
+          }
         }
-      
-      
-      // MERIDIEN
-      Toggle(meridiemState ? "PM" : "AM", isOn: $meridiemState)
-        .toggleStyle(.button)
-      
     }.fixedSize()
   }
 }
 
 struct TimeFieldView_Previews: PreviewProvider {
   static var previews: some View {
-    TimeFieldView(meridiemState: true, label: "Enter Time")
+    TimeFieldView(label: "Enter Time")
   }
+}
+
+
+enum Meridiem: String {
+  case am = "AM"
+  case pm = "PM"
 }
