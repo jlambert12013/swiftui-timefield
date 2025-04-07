@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct TimeFieldView: View {
   @State private var hour = ""
   @State private var mintue = ""
   @FocusState private var focus: FocusField?
@@ -58,7 +58,6 @@ struct ContentView: View {
           
           if hour.count == 2 {
             focus = .minute
-            
           }
         }
       
@@ -91,6 +90,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(label: "Enter Time")
+    TimeFieldView(label: "Enter Time")
   }
 }
