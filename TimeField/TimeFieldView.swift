@@ -10,6 +10,8 @@ import SwiftUI
 struct TimeFieldView: View {
   @State private var hour = ""
   @State private var mintue = ""
+//  @State private var meridiemLabel: String? = "AM"
+  @State  var meridiemState: Bool
   @FocusState private var focus: FocusField?
   
   let label: String?
@@ -84,12 +86,18 @@ struct TimeFieldView: View {
             }
           }
         }
+      
+      
+      // MERIDIEN
+      Toggle(meridiemState ? "PM" : "AM", isOn: $meridiemState)
+        .toggleStyle(.button)
+      
     }.fixedSize()
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct TimeFieldView_Previews: PreviewProvider {
   static var previews: some View {
-    TimeFieldView(label: "Enter Time")
+    TimeFieldView(meridiemState: true, label: "Enter Time")
   }
 }
