@@ -116,9 +116,7 @@ struct TimeFieldView: View {
             meridiem = meridiem + "M"
           }
           
-          if meridiem.count == 2 {
-            focus = nil
-          }
+         
         }
     }.fixedSize()
   }
