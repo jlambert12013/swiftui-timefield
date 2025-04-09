@@ -13,7 +13,7 @@ struct TimeInput: View {
   
   @Binding var text: String
   let type: TimeInputModifier.TimeInputType
-  let placeholder: String = "--"
+  let placeholder: String = ""
   let keyboard: UIKeyboardType = .default
   let handle: (Result<[String.Element], Never>.Publisher.Output) -> Void
   
@@ -40,6 +40,7 @@ struct TimeInputModifier: ViewModifier {
   
   func body(content: Content) -> some View {
     content
+      .padding(2)
       .multilineTextAlignment(type.alignment())
       .autocorrectionDisabled()
       .fixedSize()

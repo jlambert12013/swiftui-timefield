@@ -23,45 +23,10 @@ struct TimeFieldView: View {
         .padding(.trailing)
         .font(.subheadline)
       HStack {
-        // MARK: HOUR FIELD
-        TimeInput(text: $hour) { value in
-          handleHour("\(value)")
-        }
-        
-        //
-        //        TextField("HH", text: $hour)
-        //          .padding(.horizontal, 2)
-        //          .multilineTextAlignment(.trailing)
-        //          .keyboardType(.numberPad)
-        //          .autocorrectionDisabled()
-        //          .fixedSize()
-        
-        // MARK: DIVIDER
-        Text(":").opacity(0.4)
-        
-        // MARK: MINUTES
-        TextField("MM", text: $mintue)
-          .padding(.horizontal, 2)
-          .multilineTextAlignment(.leading)
-          .keyboardType(.numberPad)
-          .autocorrectionDisabled()
-          .fixedSize()
-          .focused($focus, equals: .minute)
-          .onReceive(mintue.publisher.collect()) {
-            handleMinute("\($0)")
-          }.padding(.trailing, 2)
-        
-        // MARK: MERIDIEM
-        TextField("--", text: $meridiem)
-          .padding(.horizontal, 2)
-          .multilineTextAlignment(.leading)
-          .keyboardType(.default)
-          .autocorrectionDisabled()
-          .fixedSize()
-          .focused($focus, equals: .meridiem)
-          .onReceive(meridiem.publisher.collect()) {
-            handleMeridiem("\($0)")
-          }
+        TimeInput(text: $hour, type: .hour) { handleHour("\($0)") }
+        Text(":").opacity(0.5)
+        TimeInput(text: $mintue, type: .minute) { handleMinute("\($0)") }
+        TimeInput(text: $meridiem, type: .meridiem) { handleMeridiem("\($0)") }
       }
       .padding(.vertical, 6)
       .padding(.horizontal, 10)
