@@ -45,12 +45,10 @@ struct TimeInputModifier: ViewModifier {
       .fixedSize()
       .keyboardType(type.keyboardType())
       .onReceive(text.wrappedValue.publisher.collect(), perform: handle)
-    
   }
   
   enum TimeInputType {
     case hour, minute, meridiem
-    
     func alignment() -> TextAlignment {
       switch self {
         case .hour:
