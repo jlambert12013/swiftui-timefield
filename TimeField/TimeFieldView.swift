@@ -23,10 +23,10 @@ struct TimeFieldView: View {
         .padding(.trailing)
         .font(.subheadline)
       HStack {
-        TimeInput(text: $hour, type: .hour) { handleHour("\($0)") }
+        TimeInput(text: $hour, type: .hour)
         Text(":").opacity(0.5)
-        TimeInput(text: $mintue, type: .minute) { handleMinute("\($0)") }
-        TimeInput(text: $meridiem, type: .meridiem) { handleMeridiem("\($0)") }
+        TimeInput(text: $mintue, type: .minute)
+        TimeInput(text: $meridiem, type: .meridiem)
       }
       .padding(.vertical, 6)
       .padding(.horizontal, 10)
@@ -48,80 +48,6 @@ extension TimeFieldView {
 
 
 
-extension TimeFieldView {
-  
-  // HOUR
-  func handleHour(_ input: String) {
-    // FILTER OUT NON-NUMERIC CHARACTERS
-    let number = input.filter { $0.isNumber }
-    
-    // LIMIT CHARACTER COUNT
-    hour = String(number.prefix(2))
-    
-    // PREFIX WITH ZERO
-    for num in 2...9 {
-      if hour.hasPrefix("\(num)") {
-        hour = "0\(num)"
-      }
-    }
-    
-    // REMOVE SINGLE ZERO (BACKSPACE ALL)
-    if hour == "0" { hour.removeLast() }
-    
-    // HANDLE 10, 11, 12 O'CLOCK
-    if hour.hasPrefix("1") {
-      // REMOVE REJECTED SUFFIX
-      for reject in 3...9 {
-        if hour.hasSuffix("\(reject)") {
-          hour.removeLast()
-        }
-      }
-    }
-    
-    if hour.count == 2 {
-      focus = .minute
-    }
-  }
-  
-  // HANDLE MINUTE
-  func handleMinute(_ input: String) {
-    
-    // FILTER OUT NON-NUMERIC CHARACTERS
-    let number = input.filter { $0.isNumber }
-    
-    // LIMIT CHARACTER COUNT
-    mintue = String(number.prefix(2))
-    
-    // REMOVE REJECTED PREFIX
-    for reject in 6...9 {
-      if mintue.hasPrefix("\(reject)") {
-        mintue.removeAll()
-      }
-    }
-    
-    // FOCUS
-    if mintue.count == 2 {
-      focus = .meridiem
-    }
-  }
-  
-  // HANDLE MERIDIEM
-  func handleMeridiem(_ input: String) {
-    let letter = input.filter { $0.isLetter }
-    
-    meridiem = String(letter.prefix(2))
-    meridiem = meridiem.uppercased()
-    meridiem = meridiem.filter { _ in
-      meridiem.contains(where: { "AP".contains($0) })
-    }
-    
-    if meridiem.count == 1 {
-      meridiem = meridiem + "M"
-    }
-    
-  }
-  
-}
 
 
 // PREVIEW
