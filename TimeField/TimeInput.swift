@@ -11,27 +11,31 @@ struct TimeInput: View {
   var text: Binding<String>
   let type: TimeInputModifier.TimeInputType
   
-  
   var body: some View {
     if type == .hour {
       TextField("HH", text: text)
-        .modifier(TimeInputModifier(type: .hour))
-        .onReceive(text.wrappedValue.publisher.collect(), perform: { handleHour("\($0)") })
+        .modifier(TimeInputModifier(text: text, type: .hour, handle: {
+          handleHour("\($0)")
+        }))
     } else if type == .minute {
       TextField("MM", text: text)
-        .modifier(TimeInputModifier(type: .minute))
-        .onReceive(text.wrappedValue.publisher.collect(), perform: { handleMinute("\($0)") })
+        .modifier(TimeInputModifier(text: text, type: .minute, handle: {
+          handleMinute("\($0)")
+        }))
     } else {
       TextField("--", text: text)
-        .modifier(TimeInputModifier(type: .meridiem))
-        .onReceive(text.wrappedValue.publisher.collect(), perform: { handleMeridiem("\($0)") })
+        .modifier(TimeInputModifier(text: text, type: .meridiem, handle: {
+          handleMeridiem("\($0)")
+        }))
     }
   }
 }
 
 struct TimeInputModifier: ViewModifier {
+  var text: Binding<String>
   let type: TimeInputType
   let keyboard: UIKeyboardType = .numberPad
+  let handle: (Result<[String.Element], Never>.Publisher.Output) -> Void
   
   func body(content: Content) -> some View {
     content
@@ -40,6 +44,8 @@ struct TimeInputModifier: ViewModifier {
       .autocorrectionDisabled()
       .fixedSize()
       .keyboardType(type.keyboardType())
+      .onReceive(text.wrappedValue.publisher.collect(), perform: handle)
+    
   }
   
   enum TimeInputType {
