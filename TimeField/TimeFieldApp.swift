@@ -11,7 +11,7 @@ import SwiftUI
 struct TimeFieldApp: App {
     var body: some Scene {
         WindowGroup {
-          TimeFieldView(label: "Time")
+          TimeInputView(label: "Time")
         }
     }
 }

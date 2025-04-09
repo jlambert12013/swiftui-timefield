@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B60DF7992DA6489B00E4E5D6 /* TimeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60DF7982DA6489B00E4E5D6 /* TimeInput.swift */; };
 		B6426C122D9CE75700E366C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6426C0D2D9CE75700E366C9 /* Assets.xcassets */; };
-		B6426C132D9CE75700E366C9 /* TimeFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6426C0E2D9CE75700E366C9 /* TimeFieldView.swift */; };
+		B6426C132D9CE75700E366C9 /* TimeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6426C0E2D9CE75700E366C9 /* TimeInputView.swift */; };
 		B6426C142D9CE75700E366C9 /* TimeFieldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6426C102D9CE75700E366C9 /* TimeFieldApp.swift */; };
 		B6426C172D9CE75A00E366C9 /* TimeFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6426C152D9CE75A00E366C9 /* TimeFieldTests.swift */; };
 		B6426C1B2D9CE75D00E366C9 /* TimeFieldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6426C182D9CE75D00E366C9 /* TimeFieldUITests.swift */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		B60DF7982DA6489B00E4E5D6 /* TimeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInput.swift; sourceTree = "<group>"; };
 		B6426C0D2D9CE75700E366C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B6426C0E2D9CE75700E366C9 /* TimeFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFieldView.swift; sourceTree = "<group>"; };
+		B6426C0E2D9CE75700E366C9 /* TimeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInputView.swift; sourceTree = "<group>"; };
 		B6426C0F2D9CE75700E366C9 /* TimeField.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeField.entitlements; sourceTree = "<group>"; };
 		B6426C102D9CE75700E366C9 /* TimeFieldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFieldApp.swift; sourceTree = "<group>"; };
 		B6426C152D9CE75A00E366C9 /* TimeFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFieldTests.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				B6426C0D2D9CE75700E366C9 /* Assets.xcassets */,
-				B6426C0E2D9CE75700E366C9 /* TimeFieldView.swift */,
+				B6426C0E2D9CE75700E366C9 /* TimeInputView.swift */,
 				B6426C0F2D9CE75700E366C9 /* TimeField.entitlements */,
 				B6426C102D9CE75700E366C9 /* TimeFieldApp.swift */,
 				B60DF7982DA6489B00E4E5D6 /* TimeInput.swift */,
@@ -257,7 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6426C132D9CE75700E366C9 /* TimeFieldView.swift in Sources */,
+				B6426C132D9CE75700E366C9 /* TimeInputView.swift in Sources */,
 				B60DF7992DA6489B00E4E5D6 /* TimeInput.swift in Sources */,
 				B6426C142D9CE75700E366C9 /* TimeFieldApp.swift in Sources */,
 			);

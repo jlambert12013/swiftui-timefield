@@ -8,11 +8,11 @@
 import SwiftUI
 
 
-struct TimeFieldView: View {
+struct TimeInputView: View {
   @State private var hour = ""
   @State private var mintue = ""
   @State private var meridiem = ""
-//  @FocusState private var focus: FocusField?
+  //  @FocusState private var focus: FocusField?
   
   let label: String?
   
@@ -45,9 +45,9 @@ struct TimeFieldView: View {
 //  }
 //}
 
-struct TimeFieldView_Previews: PreviewProvider {
+struct TimeInputVieww_Previews: PreviewProvider {
   static var previews: some View {
-    TimeFieldView(label: "Departure")
+    TimeInputView(label: "Departure")
   }
 }
 
