@@ -9,7 +9,6 @@ import SwiftUI
 
 
 struct TimeFieldView: View {
-  @State var userInput: String = ""
   @State private var hour = ""
   @State private var mintue = ""
   @State private var meridiem = ""
