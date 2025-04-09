@@ -10,20 +10,20 @@ import SwiftUI
 struct TimeInput: View {
   var text: Binding<String>
   let type: TimeInputModifier.TimeInputType
-  let keyboard: UIKeyboardType 
+  
   
   var body: some View {
     if type == .hour {
       TextField("HH", text: text)
-        .modifier(TimeInputModifier(type: .hour, keyboard: .numberPad))
+        .modifier(TimeInputModifier(type: .hour))
         .onReceive(text.wrappedValue.publisher.collect(), perform: { handleHour("\($0)") })
     } else if type == .minute {
       TextField("MM", text: text)
-        .modifier(TimeInputModifier(type: .minute, keyboard: .numberPad))
+        .modifier(TimeInputModifier(type: .minute))
         .onReceive(text.wrappedValue.publisher.collect(), perform: { handleMinute("\($0)") })
     } else {
       TextField("--", text: text)
-        .modifier(TimeInputModifier(type: .meridiem, keyboard: .default))
+        .modifier(TimeInputModifier(type: .meridiem))
         .onReceive(text.wrappedValue.publisher.collect(), perform: { handleMeridiem("\($0)") })
     }
   }
@@ -31,7 +31,7 @@ struct TimeInput: View {
 
 struct TimeInputModifier: ViewModifier {
   let type: TimeInputType
-  let keyboard: UIKeyboardType
+  let keyboard: UIKeyboardType = .numberPad
   
   func body(content: Content) -> some View {
     content
@@ -39,7 +39,7 @@ struct TimeInputModifier: ViewModifier {
       .multilineTextAlignment(type.alignment())
       .autocorrectionDisabled()
       .fixedSize()
-      .keyboardType(keyboard)
+      .keyboardType(type.keyboardType())
   }
   
   enum TimeInputType {
@@ -53,6 +53,15 @@ struct TimeInputModifier: ViewModifier {
           return .leading
         case .meridiem:
           return .leading
+      }
+    }
+    
+    func keyboardType() -> UIKeyboardType {
+      switch self {
+        case .hour, .minute:
+          return .numberPad
+        case .meridiem:
+          return .default
       }
     }
   }
